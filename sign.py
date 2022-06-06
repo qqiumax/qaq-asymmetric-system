@@ -1,0 +1,30 @@
+import hashlib
+import random
+file = input("file name, file must be utf-8 encoded: ")
+msgo = open(file, "r", encoding="utf-8")
+msg = int(hashlib.md5((msgo.read().encode("utf-8"))).hexdigest(),16)
+msgo.close()
+pwdo = open("key.pwd", "r", encoding="utf-8")
+pwd = pwdo.read()
+pwdo.close()
+pwdi = input("password here: ")
+pwdt = str(int(hashlib.sha1((pwdi.encode("utf-8"))).hexdigest(),16))
+
+if pwdt == pwd:
+    pubo = open("key.pub", "r", encoding="utf-8")
+    pub = int(pubo.read())
+    pubo.close()
+    seco = open("key.sec", "r", encoding="utf-8")
+    sec = int(seco.read())
+    seco.close()
+    sg2 = str((sec**msg)*pwd)
+    sg1 = str((msg**pub)+sg2)
+    sg1o = open("sig1.sig", "w", encoding = "utf-8")
+    sg1o.write(sg1)
+    sg1o.close()
+    sg2o = open("sig2.sig", "w", encoding = "utf-8")
+    sg2o.write(sg2)
+    sg2o.close()
+    print(ok)
+else:
+    print("no")
