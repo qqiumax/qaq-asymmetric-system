@@ -1,0 +1,6 @@
+s: secret key
+k: password
+p: public key(int(s/k))
+h: hashed message
+sign: sig1=h^int(s/k)+(s^h)*k, sig2=s^h*k
+verify: h^p = sig1-sig2
